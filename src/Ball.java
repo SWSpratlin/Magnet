@@ -1,6 +1,5 @@
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PGraphics;
 
 public class Ball {
     double bX; //Current Position
@@ -79,9 +78,7 @@ public class Ball {
      * Method to check if the position has changed
      */
     private boolean hasMoved() {
-        if (bX != startX && bY != startY) {
-            return true;
-        } else return false;
+        return bX != startX && bY != startY;
     }
 
     /**
