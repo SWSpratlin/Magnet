@@ -1,6 +1,8 @@
 import processing.core.PApplet;
 import processing.core.PGraphics;
+
 import java.util.ArrayList;
+
 import processing.core.PConstants;
 
 public class Magnet extends PApplet {
@@ -16,18 +18,25 @@ public class Magnet extends PApplet {
         this.g = graphics;
         balls = new ArrayList<Ball>(20);
         for (int i = 0; i < 20; i++) {
-            Ball tmpBall = new Ball(this, random(width), random(height), 50, 50);
-            balls.add(tmpBall);
+            for (int j = 0; j < height; j++) {
+                if (j % 100 == 0 && j!= 0) {
+                    for (int k = 0; k < width; k++) {
+                        if (k % 100 == 0 && k != 0) {
+                            Ball tmpBall = new Ball(this, k, j, 40, 40);
+                            balls.add(tmpBall);
+                        }
+                    }
+                }
+            }
         }
     }
 
     public void draw() {
         background(255);
-        for(int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
             balls.get(i).display();
         }
     }
-
 
 
     public static void main(String[] args) {

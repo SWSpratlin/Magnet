@@ -26,6 +26,8 @@ public class Ball {
 
     double threshold = 80; //The range in which the Balls will start to react to the mouse
 
+    int counter = 0; //frame counter for reset method
+
     PApplet s;
 
     /**
@@ -55,6 +57,7 @@ public class Ball {
      * @param stop1  the original max
      * @param start2 the new minimum
      * @param stop2  the new maximum
+     *
      * @return returns a number within that new range.
      */
     private double map(double value, double start1, double stop1, double start2, double stop2) {
@@ -82,8 +85,8 @@ public class Ball {
     }
 
     /**
-     * internal method that should always be active. Will place in the "display" method so its constant
-     * Applies a pull towards the center (that gets stronger as the ball moves further from its starting position)
+     * internal method that should always be active. Will place in the "display" method so its constant Applies a pull
+     * towards the center (that gets stronger as the ball moves further from its starting position)
      */
     private void anchorPull() {
         if (hasMoved()) {
@@ -102,7 +105,17 @@ public class Ball {
                 easeY = this.map(sDy, 0, threshold, 0, 0.25);
             }
 
+            if (easeX > 0.25) {
+                easeX = 0.25;
+            } else if (easeX < -0.25) {
+                easeX = -0.25;
+            }
 
+            if (easeY > 0.25) {
+                easeY = 0.25;
+            } else if (easeY < -0.25) {
+                easeY = -0.25;
+            }
             this.bX += sDx * easeX;
             this.bY += sDy * easeY;
         }
@@ -114,17 +127,19 @@ public class Ball {
     private boolean mouseRange() {
         if (s.mouseX >= this.startX - threshold && s.mouseX <= this.startX + threshold) {
             if (s.mouseY >= this.startY - threshold && s.mouseY <= this.startY + threshold) {
+                counter = 0;
                 return true;
             } else return false;
         } else return false;
     }
 
     /**
-     * Internal statement to apply the pull of the mouse, which will be stronger as the mouse gets closer to the
-     * Ball. Call in the display() method.
+     * Internal statement to apply the pull of the mouse, which will be stronger as the mouse gets closer to the Ball.
+     * Call in the display() method.
      */
     private void mousePull() {
         if (mouseRange()) {
+            counter++;
             sMx = s.mouseX - this.bX;
             sMy = s.mouseY - this.bY;
 
@@ -139,6 +154,17 @@ public class Ball {
             } else if (sMy > 0) {
                 targetEaseY = this.map(sMy, 0, threshold, 0, 0.25);
             }
+            if (targetEaseX > 0.25) {
+                targetEaseX = 0.25;
+            } else if (targetEaseX < -0.25) {
+                targetEaseX = -0.25;
+            }
+
+            if (targetEaseY > 0.25) {
+                targetEaseY = 0.25;
+            } else if (targetEaseY < -0.25) {
+                targetEaseY = -0.25;
+            }
 
             this.bX += sMx * targetEaseX;
             this.bY += sMy * targetEaseY;
@@ -149,18 +175,11 @@ public class Ball {
         if (!mouseRange()) {
             easeX = .25;
             easeY = .25;
-
-            if (sDx < 0.05) {
-                bX = startX;
-            }
-            if (sDy < 0.05) {
-                bY = startY;
-            }
         }
-    }
-
-    private void cleaner(){
-        if (easeX > )
+        if (counter > 60){
+            bX = startX;
+            bY = startY;
+        }
     }
 
     /**
