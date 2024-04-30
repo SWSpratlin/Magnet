@@ -7,9 +7,6 @@ import processing.core.PConstants;
 
 public class Magnet extends PApplet {
 
-    double x;
-    double y;
-    double easing = 0.01;
     PGraphics graphics;
     ArrayList<Ball> balls;
 
@@ -37,7 +34,6 @@ public class Magnet extends PApplet {
             balls.get(i).display();
         }
     }
-
 
     public static void main(String[] args) {
         String[] processingArgs = {"Magnet"};

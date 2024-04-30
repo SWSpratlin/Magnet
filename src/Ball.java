@@ -24,7 +24,7 @@ public class Ball {
     double targetEaseX; //Easing for the target(mouse) mapped between .5 and .01
     double targetEaseY; //Easing for the target(mouse) mapped between .5 and .01
 
-    double threshold = 80; //The range in which the Balls will start to react to the mouse
+    double threshold; //The range in which the Balls will start to react to the mouse
 
     int counter = 0; //frame counter for reset method
 
@@ -49,6 +49,7 @@ public class Ball {
         startX = x;
         startY = y;
         s = sketch;
+        threshold = (double) s.width / 3;
     }
 
     /**
@@ -57,7 +58,6 @@ public class Ball {
      * @param stop1  the original max
      * @param start2 the new minimum
      * @param stop2  the new maximum
-     *
      * @return returns a number within that new range.
      */
     private double map(double value, double start1, double stop1, double start2, double stop2) {
@@ -94,32 +94,34 @@ public class Ball {
             sDy = startY - bY;
 
             if (sDx < 0) {
-                easeX = this.map(sDx, 0, threshold, 0, -0.25);
+                easeX = this.map(sDx, 0, threshold, 0, -0.4);
             } else if (sDx > 0) {
-                easeX = this.map(sDx, 0, threshold, 0, 0.25);
+                easeX = this.map(sDx, 0, threshold, 0.1, 0.4);
             }
 
             if (sDy < 0) {
-                easeY = this.map(sDy, 0, threshold, 0, -0.25);
+                easeY = this.map(sDy, 0, threshold, 0, -0.4);
             } else if (sDy > 0) {
-                easeY = this.map(sDy, 0, threshold, 0, 0.25);
+                easeY = this.map(sDy, 0, threshold, 0, 0.4);
             }
 
-            if (easeX > 0.25) {
-                easeX = 0.25;
-            } else if (easeX < -0.25) {
-                easeX = -0.25;
+            if (easeX > 0.4) {
+                easeX = 0.4;
+            } else if (easeX < -.4) {
+                easeX = -.4;
             }
 
-            if (easeY > 0.25) {
-                easeY = 0.25;
-            } else if (easeY < -0.25) {
-                easeY = -0.25;
+            if (easeY > 0.4) {
+                easeY = 0.4;
+            } else if (easeY < -.4) {
+                easeY = -.4;
             }
+
             this.bX += sDx * easeX;
             this.bY += sDy * easeY;
         }
     }
+
 
     /**
      * Checks if the mouse is within range.
@@ -144,26 +146,26 @@ public class Ball {
             sMy = s.mouseY - this.bY;
 
             if (sMx < 0) {
-                targetEaseX = this.map(sMx, 0, threshold, 0, -0.25);
+                targetEaseX = this.map(sMx, 0, threshold, 0.05, 0);
             } else if (sMx > 0) {
-                targetEaseX = this.map(sMx, 0, threshold, 0, 0.25);
+                targetEaseX = this.map(sMx, 0, threshold, 0.05, 0);
             }
 
             if (sMy < 0) {
-                targetEaseY = this.map(sMy, 0, threshold, 0, -0.25);
+                targetEaseY = this.map(sMy, 0, threshold, 0.05, 0);
             } else if (sMy > 0) {
-                targetEaseY = this.map(sMy, 0, threshold, 0, 0.25);
+                targetEaseY = this.map(sMy, 0, threshold, 0.05, 0);
             }
-            if (targetEaseX > 0.25) {
-                targetEaseX = 0.25;
-            } else if (targetEaseX < -0.25) {
-                targetEaseX = -0.25;
+            if (targetEaseX > 0.05) {
+                targetEaseX = 0.05;
+            } else if (targetEaseX < -0.05) {
+                targetEaseX = -0.05;
             }
 
-            if (targetEaseY > 0.25) {
-                targetEaseY = 0.25;
-            } else if (targetEaseY < -0.25) {
-                targetEaseY = -0.25;
+            if (targetEaseY > 0.05) {
+                targetEaseY = 0.05;
+            } else if (targetEaseY < -0.05) {
+                targetEaseY = -0.05;
             }
 
             this.bX += sMx * targetEaseX;
@@ -176,7 +178,7 @@ public class Ball {
             easeX = .25;
             easeY = .25;
         }
-        if (counter > 60){
+        if (counter > 60) {
             bX = startX;
             bY = startY;
         }
