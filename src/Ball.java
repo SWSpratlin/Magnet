@@ -184,10 +184,12 @@ public class Ball {
     /**
      * Display method. Call in Draw()
      */
-    public void display() {
+    public void display(String debug) {
         s.ellipseMode(PConstants.CENTER);
         s.fill(0);
         s.ellipse((float) bX, (float) bY, ballW, ballH);
+        s.fill(255);
+        s.text(debug, (float)bX, (float)bY);
         this.anchorPull();
         this.mousePull();
         this.reset();
