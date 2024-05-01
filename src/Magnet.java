@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PSurfaceNone;
 
 import java.util.ArrayList;
 
@@ -10,9 +11,10 @@ public class Magnet extends PApplet {
     int gridY = 0;
     PGraphics graphics;
     ArrayList<Ball> balls;
+    PSurfaceNone surf;
 
     public void settings() {
-        size(500, 500);
+        size(1000, 500);
         this.g = graphics;
         balls = new ArrayList<Ball>();
         for (int j = 0; j < height; j++) {
@@ -34,7 +36,7 @@ public class Magnet extends PApplet {
 
     public void draw() {
         background(255);
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < balls.size(); i++) {
 
             if (i + 1 < balls.size() && (i + 1) % gridX != 0) {
                 drawLine(balls.get(i), balls.get(i + 1));
@@ -42,10 +44,10 @@ public class Magnet extends PApplet {
             if (i < (balls.size() - gridX)) {
                 drawLine(balls.get(i), balls.get(i + gridX));
             }
-            if ((i + 1) < balls.size() - gridX && (i + 1) % 4 != 0) {
+            if ((i + 1) < balls.size() - gridX && (i + 1) % gridX != 0) {
                 drawLine(balls.get(i), balls.get(i + gridX + 1));
             }
-            if ((i - 1) >= 0 && i % 4 != 0 && i < balls.size() - gridX) {
+            if ((i - 1) >= 0 && i % gridX != 0 && i < balls.size() - gridX) {
                 drawLine(balls.get(i), balls.get(i + gridX - 1));
             }
             balls.get(i).display(i + "");
