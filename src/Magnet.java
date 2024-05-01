@@ -14,19 +14,17 @@ public class Magnet extends PApplet {
     public void settings() {
         size(500, 500);
         this.g = graphics;
-        balls = new ArrayList<Ball>(16);
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < height; j++) {
-                if (j % 100 == 0 && j != 0) {
-                    gridX = 0;
-                    gridY = 0;
-                    for (int k = 0; k < width; k++) {
-                        if (k % 100 == 0 && k != 0) {
-                            gridX++;
-                            gridY++;
-                            Ball tmpBall = new Ball(this, k, j, 40, 40);
-                            balls.add(tmpBall);
-                        }
+        balls = new ArrayList<Ball>();
+        for (int j = 0; j < height; j++) {
+            if (j % 100 == 0 && j != 0) {
+                gridX = 0;
+                gridY = 0;
+                for (int k = 0; k < width; k++) {
+                    if (k % 100 == 0 && k != 0) {
+                        gridX++;
+                        gridY++;
+                        Ball tmpBall = new Ball(this, k, j, 40, 40);
+                        balls.add(tmpBall);
                     }
                 }
             }
@@ -38,12 +36,17 @@ public class Magnet extends PApplet {
         background(255);
         for (int i = 0; i < 16; i++) {
 
-            if (i + 1 < balls.size() && (i+1) % gridX != 0) {
-                drawLine(balls.get(i), balls.get(i+1));
+            if (i + 1 < balls.size() && (i + 1) % gridX != 0) {
+                drawLine(balls.get(i), balls.get(i + 1));
             }
-            if (i < (balls.size() - gridX)){
-                drawLine(balls.get(i), balls.get(i+gridX));
-                System.out.println(i+"");
+            if (i < (balls.size() - gridX)) {
+                drawLine(balls.get(i), balls.get(i + gridX));
+            }
+            if ((i + 1) < balls.size() - gridX && (i + 1) % 4 != 0) {
+                drawLine(balls.get(i), balls.get(i + gridX + 1));
+            }
+            if ((i - 1) >= 0 && i % 4 != 0 && i < balls.size() - gridX) {
+                drawLine(balls.get(i), balls.get(i + gridX - 1));
             }
             balls.get(i).display(i + "");
         }
