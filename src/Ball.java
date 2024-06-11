@@ -48,7 +48,7 @@ public class Ball {
         startX = x;
         startY = y;
         s = sketch;
-        threshold = (double) s.width / 3;
+        threshold = (double) s.width / 10;
     }
 
     /**

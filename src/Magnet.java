@@ -1,9 +1,9 @@
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PGraphics2D;
 import processing.core.PSurfaceNone;
-
 import java.util.ArrayList;
-
 import processing.core.PConstants;
 
 public class Magnet extends PApplet {
@@ -14,7 +14,8 @@ public class Magnet extends PApplet {
     PSurfaceNone surf;
 
     public void settings() {
-        size(1000, 500);
+        size(displayWidth, displayHeight);
+        fullScreen();
         this.g = graphics;
         balls = new ArrayList<Ball>();
         for (int j = 0; j < height; j++) {
